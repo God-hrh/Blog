@@ -1,0 +1,137 @@
+body{
+	background: url(../images/bg1.jpg) repeat scroll top left;
+}
+.m-padded-tiny{
+	padding: 0.3em !important;
+}
+.m-padded-huge{
+	padding: 4em !important;
+}
+.m-padded-large{
+	padding: 2em !important;
+}
+.m-padded-mini{
+	padding: 0.2em !important;
+}
+.m-padded-tb-mini{
+	padding-bottom: 0.2em !important;
+	padding-top: 0.2em !important;
+}
+.m-padded-tb-tiny{
+	padding-bottom: 0.3em !important;
+	padding-top: 0.3em !important;
+}
+.m-padded-tb-small{
+	padding-bottom: 0.5em !important;
+	padding-top: 0.5em !important;
+}
+.m-padded-tb{
+	padding-bottom: 1em !important;
+	padding-top: 1em !important;
+}
+.m-padded-tb-large{
+	padding-bottom: 2em !important;
+	padding-top: 2em !important;
+}
+.m-padded-tb-big{
+	padding-bottom: 3em !important;
+	padding-top: 3em !important;
+}
+.m-padded-tb-huge{
+	padding-bottom: 4em !important;
+	padding-top: 4em !important;
+}
+.m-padded-tb-massive{
+	padding-bottom: 5em !important;
+	padding-top: 5em !important;
+}
+.m-padded-lr-response{
+	padding-left: 6em !important;
+	padding-right: 6em !important;
+}
+/*---------------margin--------------*/
+.m-margin-tb-tiny{
+	margin-bottom: 0.3em !important;
+	margin-top: 0.3em !important;
+}
+.m-margin-top-large{
+	margin-top: 2em !important;
+}
+/*---------position--------*/
+.m-right-top{
+	position: absolute;
+	top: 20px;
+	right: 0;
+}
+/*---------------text----------------*/
+.m-text{
+	font-weight: 300 !important;
+	letter-spacing: 1px !important;
+	line-height: 1.8;
+}
+.m-text-thin{
+	font-weight: 300 !important;
+}
+.m-text-spaced{
+	letter-spacing: 1px !important;
+}
+.m-text-lined{
+	line-height: 1.8;
+}
+.m-opacity-mini{
+	opacity: 0.8 !important;
+}
+
+
+
+
+
+
+
+/*-----display-----*/
+.m-inline-block{
+	display: inline-block !important;
+}
+/*-------contain-----*/
+.m-contain{
+	max-width: 70em !important;
+	margin: auto !important;
+}
+.m-contain-smail{
+	max-width: 60em !important;
+	margin: auto !important;
+}
+/*------textColor------*/
+.m-black{
+	color: #333 !important;
+}
+
+
+/*------------mobile------*/
+.m-mobile-show{
+	display: none !important;
+}
+@media screen and (max-width:768px){
+	.m-mobile-hidden{
+		display: none !important;
+	}
+	.m-mobile-show{
+		display: block !important;
+	}
+	.m-padded-lr-response{
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+	.m-mibile-wide{
+		width: 100% !important;
+	}
+}
+/*-----position------*/
+.m-fixed{
+	position: fixed !important; 
+	z-index: 10 !important;
+}
+.m-right-bottom{
+	right: 0px !important;
+	bottom: 0 !important;
+}
