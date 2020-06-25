@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 
 	<head th:replace="admin/_fragments :: header(~{::title})">
-		<meta charset="utf-8"  />
+		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
 		<link rel="stylesheet" type="text/css" href="../../static/css/my.css" />
@@ -11,7 +11,7 @@
 
 	<body>
 		<!--导航-->
-		<nav class="ui inverted attached segment m-padded-tb-mini">
+		<nav class="ui inverted attached segment m-padded-tb-mini" th:replace="admin/_fragments :: nav(1)">
 			<div class="ui container">
 				<div class="ui inverted secondary stackable menu">
 					<h2 class="ui teal header item">管理后台</h2>
@@ -34,119 +34,15 @@
 				<i class="sidebar icon"></i>
 			</a>
 		</nav>
-		<!--二级导航-->
-		<div class="ui attached  pointing menu">
-			<div class="ui  container">
-				<div class="left menu">
-					<a href="#" class=" item">发布</a>
-					<a href="#" class=" teal active item">列表</a>
-				</div>
-			</div>
-		</div>
+
 		<!--中间内容-->
-		<div class="m-contain m-padded-tb-large">
+		<div class="m-contain-smail m-padded-tb-large">
 			<div class="ui container ">
-				<form action="#" method="post" class="ui segment  form">
-					<div class="ui inline fields">
-						<!--input-->
-						<div class="ui field">
-							<input type="text" placeholder="标题" name="title" />
-						</div>
-						<!--下拉框-->
-						<div class="ui field">
-							<div class="ui selection dropdown">
-								<input type="hidden" name="type" id="" value="" />
-								<i class="dropdown icon"></i>
-								<div class="default text">分类</div>
-								<div class="menu">
-									<div class="item" data-vaule="1">错误日志</div>
-									<div class="item" data-vaule="2">开发者手册</div>
-									<div class="item" data-vaule="3">学习文档</div>
-								</div>
-							</div>
-						</div>
-						<!--复选框-->
-						<div class="ui field">
-							<div class="ui checkbox">
-								<input type="checkbox" id="recommend" name="recommend"/>
-								<label for="recommend">推荐</label>
-							</div>
-						</div>
-						<!--按钮-->
-						<div class="ui field">
-							<button class="ui teal mini button">
-								搜索
-								<i class="search icon"></i>
-							</button>
-						</div>
-					</div>
-				</form>
-				<!--表格-->
-				<table class="ui celled table">
-  <thead>
-    <tr>
-    <th>序号</th>
-    <th>标题</th>
-    <th>类型</th>
-    <th>推荐</th>
-    <th>更新时间</th>
-    <th>操作</th>
-  </tr></thead>
-  <tbody>
-    <tr>
-    	<td>1</td>
-      <td>
-        	论程序员的养生之路
-      </td>
-      <td>闲聊</td>
-      <td>是</td>
-      <td>2020-06-01</td>
-      <td>
-      	<a href="#" class="ui teal mini button">编辑</a>
-      	<a href="#" class="ui red mini button">删除</a>
-      </td>
-    </tr>
-    <tr>
-    	<td>2</td>
-      <td>
-        	论程序员的养生之路
-      </td>
-      <td>闲聊</td>
-      <td>是</td>
-      <td>2020-06-01</td>
-      <td>
-      	<a href="#" class="ui teal mini button">编辑</a>
-      	<a href="#" class="ui red mini button">删除</a>
-      </td>
-    </tr>
-    <tr>
-    	<td>3</td>
-      <td>
-        	论程序员的养生之路
-      </td>
-      <td>闲聊</td>
-      <td>是</td>
-      <td>2020-06-01</td>
-      <td>
-      	<a href="#" class="ui teal mini button">编辑</a>
-      	<a href="#" class="ui red mini button">删除</a>
-      </td>
-    </tr>
-  </tbody>
-  <tfoot>
-    <tr>
-    	<!--合并六列单元格-->
-    	<th colspan="6">
-      <div class="ui mini pagination menu">
-        <a class="item">上一页</a>
-        <a class="item">下一页</a>
-      </div>
-      <a href="" class="ui mini right floated teal button">
-      	新增
-      </a>
-    </th>
-  </tr></tfoot>
-</table>
+				<div class="ui success large message">
+					<h3>Hi，</h3>
+					<p>贺先森，欢迎登陆！</p>
+				</div>
+				<img src="../../static/images/heardImg2.jpg" alt="" class="ui rounded bordered fluid image">
 			</div>
 		</div>
 
@@ -208,8 +104,10 @@
 				</p>
 			</div>
 		</footer>
+		<!--/*/<th:block th:replace="_fragments :: script">/*/-->
 		<script type="text/javascript" src="../../static/js/jquery-1.9.1.js"></script>
 		<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+		<!--/*/</th:block>/*/-->
 		<script type="text/javascript">
 			$("#sidebar").click(function() {
 				$('.m-item').toggleClass("m-mobile-hidden");
