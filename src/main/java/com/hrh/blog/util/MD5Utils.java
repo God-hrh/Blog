@@ -1,5 +1,7 @@
 package com.hrh.blog.util;
 
+import com.hrh.blog.pojo.Type;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -38,7 +40,8 @@ public class MD5Utils {
         }
     }
 
-//    public static void main(String[] args) {
-//        System.out.println(code("123456"));
-//    }
+    public static void main(String[] args) {
+        Type type = new Type();
+        System.out.println(type.getId());
+    }
 }

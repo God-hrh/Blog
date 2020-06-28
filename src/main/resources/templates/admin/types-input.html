@@ -2,16 +2,17 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 
 	<head th:replace="admin/_fragments :: header(~{::title})">
-		<meta charset="utf-8"  />
+		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
-		<link rel="stylesheet" type="text/css" href="../../static/css/my.css" />
-		<title>博客管理</title>
+		<link rel="stylesheet" type="text/css" href="../../static/css/my.css" th:href="@{/css/my.css}"/>
+
+		<title>新增分类</title>
 	</head>
 
 	<body>
 		<!--导航-->
-		<nav class="ui inverted attached segment m-padded-tb-mini" th:replace="admin/_fragments :: nav(1)">
+		<nav class="ui inverted attached segment m-padded-tb-mini" th:replace="admin/_fragments :: nav(2)">
 			<div class="ui container">
 				<div class="ui inverted secondary stackable menu">
 					<h2 class="ui teal header item">管理后台</h2>
@@ -20,13 +21,12 @@
 					<a href="#" class=" m-item item m-mobile-hidden"><i class="tags icon"></i>标签</a>
 					<div class="ui right dropdown item m-item m-mobile-hidden">
 						<div class="text">
-							<img src="../../static/images/heardImg2.jpg" class="ui avatar image" style="width: 40px; height:40px;"/>
-							God-hrh
+							<img src="../../static/images/heardImg2.jpg" th:src="@{/images/heardImg2.jpg}" class="ui avatar image" style="width: 40px; height:40px;" /> God-hrh
 						</div>
 						<i class="dropdown icon"></i>
-							<div class="menu">
-								<a href="#" class="item">注销</a>
-							</div>
+						<div class="menu">
+							<a href="#" class="item">注销</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -38,115 +38,52 @@
 		<div class="ui attached  pointing menu">
 			<div class="ui  container">
 				<div class="left menu">
-					<a href="#" class=" item">发布</a>
-					<a href="#" class=" teal active item">列表</a>
+					<a href="#" th:href="@{/admin/types/input}" class=" active teal   item">新增类型</a>
+					<a href="#" th:href="@{/admin/types}" class=" item">类型列表</a>
 				</div>
 			</div>
 		</div>
+		<br>
+		<br>
+
+
+
 		<!--中间内容-->
 		<div class="m-contain m-padded-tb-large">
-			<div class="ui container ">
-				<form action="#" method="post" class="ui segment  form">
-					<div class="ui inline fields">
-						<!--input-->
-						<div class="ui field">
-							<input type="text" placeholder="标题" name="title" />
-						</div>
-						<!--下拉框-->
-						<div class="ui field">
-							<div class="ui selection dropdown">
-								<input type="hidden" name="type" id="" value="" />
-								<i class="dropdown icon"></i>
-								<div class="default text">分类</div>
-								<div class="menu">
-									<div class="item" data-vaule="1">错误日志</div>
-									<div class="item" data-vaule="2">开发者手册</div>
-									<div class="item" data-vaule="3">学习文档</div>
-								</div>
+			<div class="ui container">
+<!--				-->
+				<form action="#" method="post" th:object="${type}" class="ui form m-padded-huge" th:action="*{id}==0 ? @{/admin/types} : @{/admin/types/{id}(id=*{id})}">
+					<input type="hidden" name="id" th:value="*{id}">
+					<!--写作区-->
+					<div class=" ui field">
+						<div class="ui left labeled input">
+							<div class="ui selection teal compact dropdown label">
+								<input type="hidden" value="分类" />
+								<div class=" text">分类</div>
 							</div>
-						</div>
-						<!--复选框-->
-						<div class="ui field">
-							<div class="ui checkbox">
-								<input type="checkbox" id="recommend" name="recommend"/>
-								<label for="recommend">推荐</label>
-							</div>
-						</div>
-						<!--按钮-->
-						<div class="ui field">
-							<button class="ui teal mini button">
-								搜索
-								<i class="search icon"></i>
-							</button>
+							<input type="text" class="required ui input " name="name" placeholder="分类" th:value="*{name}"/>
 						</div>
 					</div>
+<!--					前端校验区域-->
+					<div class="ui error message"></div>
+<!--					后端验证区域，在HTML静态页面里是注释，在Thymeleaf里会显示出来-->
+					<!--/*/
+        <div class="ui negative message" th:if="${#fields.hasErrors('name')}"  >
+          <i class="close icon"></i>
+          <div class="header">验证失败</div>
+          <p th:errors="*{name}">提交信息不符合规则</p>
+        </div>
+         /*/-->
+						<!--提交按钮-->
+
+						<div class="ui right aligned  container">
+							<button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
+							<button  class="ui teal submit	 button" >
+								提交
+							</button>
+						</div>
+
 				</form>
-				<!--表格-->
-				<table class="ui celled table">
-  <thead>
-    <tr>
-    <th>序号</th>
-    <th>标题</th>
-    <th>类型</th>
-    <th>推荐</th>
-    <th>更新时间</th>
-    <th>操作</th>
-  </tr></thead>
-  <tbody>
-    <tr>
-    	<td>1</td>
-      <td>
-        	论程序员的养生之路
-      </td>
-      <td>闲聊</td>
-      <td>是</td>
-      <td>2020-06-01</td>
-      <td>
-      	<a href="#" class="ui teal mini button">编辑</a>
-      	<a href="#" class="ui red mini button">删除</a>
-      </td>
-    </tr>
-    <tr>
-    	<td>2</td>
-      <td>
-        	论程序员的养生之路
-      </td>
-      <td>闲聊</td>
-      <td>是</td>
-      <td>2020-06-01</td>
-      <td>
-      	<a href="#" class="ui teal mini button">编辑</a>
-      	<a href="#" class="ui red mini button">删除</a>
-      </td>
-    </tr>
-    <tr>
-    	<td>3</td>
-      <td>
-        	论程序员的养生之路
-      </td>
-      <td>闲聊</td>
-      <td>是</td>
-      <td>2020-06-01</td>
-      <td>
-      	<a href="#" class="ui teal mini button">编辑</a>
-      	<a href="#" class="ui red mini button">删除</a>
-      </td>
-    </tr>
-  </tbody>
-  <tfoot>
-    <tr>
-    	<!--合并六列单元格-->
-    	<th colspan="6">
-      <div class="ui mini pagination menu">
-        <a class="item">上一页</a>
-        <a class="item">下一页</a>
-      </div>
-      <a href="" class="ui mini right floated teal button">
-      	新增
-      </a>
-    </th>
-  </tr></tfoot>
-</table>
 			</div>
 		</div>
 
@@ -208,15 +145,29 @@
 				</p>
 			</div>
 		</footer>
-		<script type="text/javascript" src="../../static/js/jquery-1.9.1.js"></script>
+		<script type="text/javascript" src="../../static/js/jquery-1.9.1.js" th:src="@{/js/jquery-1.9.1.js}"></script>
 		<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
 		<script type="text/javascript">
 			$("#sidebar").click(function() {
 				$('.m-item').toggleClass("m-mobile-hidden");
 			});
 			$(".ui.dropdown").dropdown({
-				on:"hover"
+				on: "hover"
 			});
+			$(".ui.form").form({
+				fields:{
+					name:{
+						identifier:'name',
+						rules:[{
+							type:'empty',
+							prompt:'请输入分类名称！'
+						}]
+					}
+				}
+			});
+			$(".message .close").click(function () {
+				$(this).closest('.message').transition('fade');
+			})
 		</script>
 	</body>
 

@@ -1,5 +1,7 @@
 package com.hrh.blog.pojo;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,7 @@ public class Tag {
     @Id
     @GeneratedValue
     private long id;
+    @NotBlank(message = "标签名称不能为空")
     private String name;
     @ManyToMany(mappedBy = "tags")
     private List<Blog> blogs = new ArrayList<>();
