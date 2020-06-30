@@ -1,8 +1,19 @@
 package com.hrh.blog.web.blog;
 
+import com.hrh.blog.pojo.Blog;
+import com.hrh.blog.service.BlogService;
+import com.hrh.blog.service.TypeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+
 
 /**
  * @author Heerh
@@ -12,8 +23,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/admin")
 public class BlogController {
+    @Autowired
+    private BlogService blogService;
+    @Autowired
+    private TypeService typeService;
     @GetMapping("/blogs")
-    public String blogsPage(){
+    public String blogsPage(@PageableDefault(size = 8,sort = {"updateTime"},direction = Sort.Direction.DESC) Pageable pageable, Blog blog , Model model){
+        model.addAttribute("types",typeService.listType());
+        model.addAttribute("page",blogService.listBlogs(pageable,blog));
         return "admin/blogs";
+    }
+    @PostMapping("/blogs/search")
+    public String search(@PageableDefault(size = 8,sort = {"updateTime"},direction = Sort.Direction.DESC) Pageable pageable, Blog blog , Model model){
+        model.addAttribute("page",blogService.listBlogs(pageable,blog));
+        return "admin/blogs :: bloglist";
     }
 }

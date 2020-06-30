@@ -4,6 +4,8 @@ import com.hrh.blog.pojo.Type;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  * @author Heerh
  * @version 1.0
@@ -16,4 +18,5 @@ public interface TypeService {
     Type findType(Long id);
     Type findTypeByName(String name);
     Page<Type> listType(Pageable pageable);
+    List<Type> listType();
 }

@@ -1,0 +1,85 @@
+package com.hrh.blog.service;
+
+import com.hrh.blog.dao.BlogRepository;
+import com.hrh.blog.exception.NotFoundException;
+import com.hrh.blog.pojo.Blog;
+import com.hrh.blog.pojo.Type;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author Heerh
+ * @version 1.0
+ * @date 2020/6/28 23:22
+ */
+@Service
+public class BlogServiceImpl implements BlogService {
+    @Autowired
+    private BlogRepository blogRepository;
+    @Override
+    public Blog getBlog(Long id) {
+        return blogRepository.findOne(id);
+    }
+
+    @Override
+    public Page<Blog> listBlogs(Pageable pageable ,Blog blog) {
+        //findAll里面两个参数，第一个是new Specification，第二个是pageable
+        return blogRepository.findAll(new Specification<Blog>() {
+            @Override
+            //Root是把Blog映射成表字段，可以通过属性拿到
+            //CriteriaQuery是一个查询容器
+            //CriteriaBuilder里面设置具体的条件，比如相等，like条件等
+            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+                List<Predicate> predicates = new ArrayList<>();
+                //前端是input输入框
+                if (!("".equals(blog.getTitle())) && blog.getTitle() != null){
+                    predicates.add(cb.like(root.<String>get("title"),"%"+blog.getTitle()+"%"));
+                }
+                //前端是select选择框
+                if (blog.getType()!=null&&blog.getType().getId()!=0){
+                    predicates.add(cb.equal(root.<Type>get("type").get("id"),blog.getType().getId()));
+                }
+                //前端是多选框，判断是否打勾
+                if (blog.isRecommend()){
+                    predicates.add(cb.equal(root.<Boolean>get("recommend"),blog.isCommentabled()));
+                }
+                //利用容器开始查询
+                cq.where(predicates.toArray(new Predicate[predicates.size()]));
+                //return就行，Spring JAP自动完成sql的拼接查询
+                return null;
+            }
+        },pageable);
+    }
+
+    @Override
+    public Blog saveBlog(Blog blog) {
+        return blogRepository.save(blog);
+    }
+
+    @Override
+    public Blog updateBlog(Long id, Blog blog) {
+        Blog b = blogRepository.findOne(id);
+        if (b==null){
+            throw new NotFoundException("该博客不存在");
+        }
+        //把blog的值赋给b
+        BeanUtils.copyProperties(blog,b);
+        return blogRepository.save(b);
+    }
+
+    @Override
+    public void deleteBlog(Long id) {
+        blogRepository.delete(id);
+    }
+}

@@ -31,13 +31,13 @@ public class TagServiceImpl implements TagService {
     }
     @Transactional
     @Override
-    public Tag updateTag(Long id, Tag Tag) {
+    public Tag updateTag(Long id, Tag tag) {
         Tag t = TagRepository.findOne(id);
         if (t==null){
             throw new NotFoundException();
         }
-        BeanUtils.copyProperties(Tag,t);
-        return TagRepository.save(Tag);
+        BeanUtils.copyProperties(tag,t);
+        return TagRepository.save(t);
     }
     @Transactional
     @Override

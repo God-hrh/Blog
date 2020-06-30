@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 public interface TagService {
     Tag saveTag(Tag Tag);
     void deleteTag(Long id);
-    Tag updateTag(Long id, Tag Tag);
+    Tag updateTag(Long id, Tag tag);
     Tag findTag(Long id);
     Tag findTagByName(String name);
     Page<Tag> listTag(Pageable pageable);
