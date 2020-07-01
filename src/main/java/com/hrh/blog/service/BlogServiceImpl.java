@@ -4,18 +4,21 @@ import com.hrh.blog.dao.BlogRepository;
 import com.hrh.blog.exception.NotFoundException;
 import com.hrh.blog.pojo.Blog;
 import com.hrh.blog.pojo.Type;
+import com.hrh.blog.util.MyBeanUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -52,7 +55,7 @@ public class BlogServiceImpl implements BlogService {
                 }
                 //前端是多选框，判断是否打勾
                 if (blog.isRecommend()){
-                    predicates.add(cb.equal(root.<Boolean>get("recommend"),blog.isCommentabled()));
+                    predicates.add(cb.equal(root.<Boolean>get("recommend"),blog.isRecommend()));
                 }
                 //利用容器开始查询
                 cq.where(predicates.toArray(new Predicate[predicates.size()]));
@@ -61,23 +64,32 @@ public class BlogServiceImpl implements BlogService {
             }
         },pageable);
     }
-
+    //@Transactional 数据库事务注解
+    @Transactional
     @Override
     public Blog saveBlog(Blog blog) {
+        if (blog.getId() == 0) {
+            blog.setCteateTime(new Date());
+            blog.setUpdateTime(new Date());
+            blog.setViews(0);
+        } else {
+            blog.setUpdateTime(new Date());
+        }
         return blogRepository.save(blog);
     }
-
+    @Transactional
     @Override
     public Blog updateBlog(Long id, Blog blog) {
         Blog b = blogRepository.findOne(id);
         if (b==null){
             throw new NotFoundException("该博客不存在");
         }
-        //把blog的值赋给b
-        BeanUtils.copyProperties(blog,b);
+        //把blog的值赋给b  MyBeanUtils.getNullPropertyNames(blog)是自定义函数，在赋值的时候过滤掉值为空的属性
+        BeanUtils.copyProperties(blog,b, MyBeanUtils.getNullPropertyNames(blog));
+        b.setUpdateTime(new Date());
         return blogRepository.save(b);
     }
-
+    @Transactional
     @Override
     public void deleteBlog(Long id) {
         blogRepository.delete(id);

@@ -26,9 +26,13 @@ public class Blog {
     private long id;
     //标题
     private String  title;
-    //内容
+    //内容 @Basic(fetch = FetchType.LAZY)懒加载，不会立马查找，只有用到的时候才查找 @Lob声明是个大字段类型，在数据库里会生成longtest类型，避免因内容过长而sql语句出错
+    @Basic(fetch = FetchType.LAZY)
+    @Lob
     private String content;
     //首图
+    @Basic(fetch = FetchType.LAZY)
+    @Lob
     private String firstPicture;
     //标记
     private String flag;
@@ -56,12 +60,17 @@ public class Blog {
     //标签类
     @ManyToMany(cascade = {CascadeType.PERSIST})
     private List<Tag> tags = new ArrayList<>();
+    //标签类的ids  @Transient是不需要该字段存储进数据库
+    @Transient
+    private String tagIds;
     //评论类
     @OneToMany(mappedBy = "blog")
     private List<Comment> comments = new ArrayList<>();
     //用户类
     @ManyToOne
     private User user;
+    //博客描述（用于游客首页的博客预览）
+    private String description;
     public long getId() {
         return id;
     }
@@ -170,6 +179,22 @@ public class Blog {
         return type;
     }
 
+    public String getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(String tagIds) {
+        this.tagIds = tagIds;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Blog(String title, String content, String firstPicture, String flag, int views, boolean appreciation, boolean shareStatement, boolean commentabled, boolean published, boolean recommend, Date cteateTime, Date updateTime, Type type, List<Tag> tags, List<Comment> comments, User user) {
         this.title = title;
         this.content = content;
@@ -220,7 +245,28 @@ public class Blog {
     public Blog() {
 
     }
+    public void init() {
+        this.tagIds = tagsToIds(this.getTags());
+    }
 
+    //1,2,3
+    private String tagsToIds(List<Tag> tags) {
+        if (!tags.isEmpty()) {
+            StringBuffer ids = new StringBuffer();
+            boolean flag = false;
+            for (Tag tag : tags) {
+                if (flag) {
+                    ids.append(",");
+                } else {
+                    flag = true;
+                }
+                ids.append(tag.getId());
+            }
+            return ids.toString();
+        } else {
+            return tagIds;
+        }
+    }
     //toString()是为了在日志里记录方便打印
     @Override
     public String toString() {

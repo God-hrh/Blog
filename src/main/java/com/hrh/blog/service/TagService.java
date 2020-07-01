@@ -4,6 +4,8 @@ import com.hrh.blog.pojo.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  * @author Heerh
  * @version 1.0
@@ -14,6 +16,8 @@ public interface TagService {
     void deleteTag(Long id);
     Tag updateTag(Long id, Tag tag);
     Tag findTag(Long id);
+    List<Tag> listTag(String ids);
     Tag findTagByName(String name);
     Page<Tag> listTag(Pageable pageable);
+    List<Tag> listTag();
 }

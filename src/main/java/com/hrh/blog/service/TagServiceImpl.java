@@ -10,6 +10,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author Heerh
  * @version 1.0
@@ -46,6 +50,20 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    public List<Tag> listTag(String ids) {
+        //把"1,2,3"这种字符串的ids转城List
+        List<Long> list =  new ArrayList<>();
+        if (!"".equals(ids) && ids != null) {
+            String[] idarray = ids.split(",");
+            for (int i=0; i < idarray.length;i++) {
+                list.add(new Long(idarray[i]));
+            }
+        }
+        //JPA自带的遍历查询方法
+        return TagRepository.findAll(list);
+    }
+
+    @Override
     public Tag findTagByName(String name) {
         return TagRepository.findByName(name);
     }
@@ -54,5 +72,10 @@ public class TagServiceImpl implements TagService {
     @Override
     public Page<Tag> listTag(Pageable pageable) {
         return TagRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Tag> listTag() {
+        return TagRepository.findAll();
     }
 }

@@ -37,34 +37,40 @@
 </nav>
 <!--二级导航-->
 <div class="ui attached  pointing menu">
-    <div class="ui  container"> 
+    <div class="ui  container">
         <div class="left menu">
-            <a href="#" class=" item">博客发布</a>
-            <a href="#" class=" teal active item">博客列表</a>
+            <a href="#" class=" item" th:href="@{/admin/blogs/input}">博客发布</a>
+            <a href="#" class=" teal active item" th:href="@{/admin/blogs}">博客列表</a>
         </div>
     </div>
 </div>
 <!--中间内容-->
 <div class="m-contain m-padded-tb-large">
     <div class="ui container ">
+        <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+            <i class="close icon"></i>
+            <div class="header">提示：</div>
+            <p th:text="${message}">恭喜，操作成功！</p>
+        </div>
         <div  class="ui segment  form">
 <!--            添加一个隐藏域，把上一页下一页的pageNumber值传递过来-->
             <input type="hidden" name="page">
             <div class="ui inline fields">
                 <!--input-->
                 <div class="ui field">
-                    <input type="text" placeholder="标题" name="title"/>
+                    <input type="text" placeholder="标题" id="form-title" name="title"/>
                 </div>
                 <!--下拉框-->
                 <div class="ui field">
                     <div class="ui selection dropdown">
-                        <input type="hidden" name="typeId" />
+                        <input type="hidden" th:name="type.id" />
                         <i class="dropdown icon"></i>
                         <div class="default text">分类</div>
                         <div class="menu">
                             <div class="item" data-vaule="1" th:each="type : ${types}" th:data-value="${type.id}" th:text="${type.name}" >错误日志</div>
                         </div>
                     </div>
+
                 </div>
                 <!--复选框-->
                 <div class="ui field">
@@ -73,6 +79,7 @@
                         <label for="recommend">推荐</label>
                     </div>
                 </div>
+                <button id="clear-btn" class="ui compact button">清除</button>
                 <!--按钮-->
                 <div class="ui field">
                     <button class="ui teal mini button" id="search-btn">
@@ -91,6 +98,7 @@
                     <th>标题</th>
                     <th>类型</th>
                     <th>推荐</th>
+                    <th>发布</th>
                     <th>更新时间</th>
                     <th>操作</th>
                 </tr>
@@ -103,6 +111,7 @@
                     </td>
                     <td th:text="${blog.type.name}">闲聊</td>
                     <td th:text="${blog.recommend} ? '是' : '否'">是</td>
+                    <td th:text="${blog.published} ? '发布' : '草稿'">是</td>
                     <td th:text="${blog.updateTime}">2020-06-01</td>
                     <td>
                         <a href="#" th:href="@{/admin/blogs/{id}/input(id=${blog.id})}" class="ui teal mini button">编辑</a>
@@ -113,20 +122,21 @@
                 <tfoot>
                 <tr>
                     <!--合并六列单元格-->
-                    <th colspan="6">
+                    <th colspan="7">
                         <div class="ui mini pagination menu" th:if="${page.totalPages}>1">
                             <!--                        这里因为同一个url还要传递form表单的值，而且是post方式提交，不建议在超链接里面拼接表单值，而是把-->
                             <!--                        上一页下一页的pageNumber动态传递给表单，让表单去提交，th:attr是模板的自定义语法，data-page是H5自定义的-->
                             <a class="item" onclick="page(this)" th:attr="data-page=${page.number}-1" th:unless="${page.first}">上一页</a>
                             <a class="item" onclick="page(this)" th:attr="data-page=${page.number}+1" th:unless="${page.last}">下一页</a>
                         </div>
-                        <a href="" class="ui mini right floated teal button">
+                        <a href="" class="ui mini right floated teal button" th:href="@{/admin/blogs/input}">
                             新增
                         </a>
                     </th>
                 </tr>
                 </tfoot>
             </table>
+
         </div>
 
     </div>
@@ -199,6 +209,14 @@
     $(".ui.dropdown").dropdown({
         on: "hover"
     });
+    //表单清除数据按钮
+    $('#clear-btn')
+        .on('click', function() {
+            $('.ui.selection.dropdown')
+                .dropdown('clear');
+            $('#recommend').prop("checked", false);
+            $('#form-title').val("");
+        });
     // 上一页下一页的函数
     function page(obj) {
         //$("[name='page']")获取到name=page的隐藏域
@@ -214,11 +232,14 @@
     function loaddata() {
         $("#table-container").load(/*[[@{/admin/blogs/search}]]*/"/admin/blogs/search",{
             title : $("[name='title']").val(),
-            typeId : $("[name='typeId']").val(),
+            'type.id' : $("[name='type.id']").val(),
             recommend : $("[name='recommend']").prop('checked'),
             page : $("[name='page']").val()
         });
-    }
+    };
+    $(".message .close").click(function () {
+        $(this).closest('.message').transition('fade');
+    });
 </script>
 </body>
 
