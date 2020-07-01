@@ -19,4 +19,5 @@ public interface TypeService {
     Type findTypeByName(String name);
     Page<Type> listType(Pageable pageable);
     List<Type> listType();
+    List<Type> listTypeTop(Integer size);
 }

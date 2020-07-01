@@ -17,6 +17,8 @@ public interface TagService {
     Tag updateTag(Long id, Tag tag);
     Tag findTag(Long id);
     List<Tag> listTag(String ids);
+    //取List的前几个值
+    List<Tag> listTagTop(Integer size);
     Tag findTagByName(String name);
     Page<Tag> listTag(Pageable pageable);
     List<Tag> listTag();
