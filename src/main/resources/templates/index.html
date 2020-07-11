@@ -87,7 +87,8 @@
 							</div>
 						</div>
 <!--下面这个注释在静态HTML里会把内容展现出来，但是动态的Thymeleaf渲染的时候会当成注释-->
-						<!--						/*/-->
+
+						<!--/*-->
 						<div class="ui padded vertical segment m-padded-tb-large">
 							<div class="ui mobile reversed stackable  grid">
 								<!--text-->
@@ -196,7 +197,7 @@
 								</div>
 							</div>
 						</div>
-<!--					/*/-->
+						<!--*/-->
 					</div>
 					<!--footer-->
 					<div class="ui bottom attached segment" th:if="${page.totalPages}>1">
@@ -223,11 +224,11 @@
 						<div class="ui  teal segment">
 							<div class="ui fluid vertical menu">
 								<a href="#" class="item" th:each="type : ${types}"><span th:text="${type.name}">学习日志</span> <div class="ui teal basic left pointing label" th:text="${#arrays.length(type.blogs)}">13</div></a>
-<!--								/*/-->
+<!--/*-->
 								<a href="#" class="item">学习日志 <div class="ui teal basic left pointing label">13</div></a>
 								<a href="#" class="item">学习日志 <div class="ui teal basic left pointing label">13</div></a>
 								<a href="#" class="item">学习日志 <div class="ui teal basic left pointing label">13</div></a>
-<!--							/*/-->
+<!--*/-->
 							</div>
 							
 						</div>
@@ -243,13 +244,13 @@
 						</div>
 						<div class="ui teal segment">
 							<a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny" th:each="tag : ${tags}"><span th:text="${tag.name}">方法论</span> <div class="detail" th:text="${#arrays.length(tag.blogs)}">23</div></a>
-<!--							/*/-->
+<!--/*-->
 							<a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">方法论 <div class="detail">23</div></a>
 							<a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">方法论 <div class="detail">23</div></a>
 							<a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">方法论 <div class="detail">23</div></a>
 							<a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">方法论 <div class="detail">23</div></a>
 							<a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">方法论 <div class="detail">23</div></a>
-<!--						/*/-->
+<!--*/-->
 						</div>
 					</div>
 					<!--最新推荐-->
@@ -261,14 +262,14 @@
 						<div class="ui segment" th:each="recommendBlog : ${recommendBlogs}">
 							<a href="#" target="_blank" class="m-black" th:href="@{/blog/{id}(id=recommendBlog.id)}"><span th:text="${recommendBlog.title}"> 用户故事</span></a>
 						</div>
-<!--						/*/-->
+<!--/*-->
 						<div class="ui segment">
 							<a href="#" target="_blank" class="m-black">用户故事</a>
 						</div>
 						<div class="ui segment">
 							<a href="#" target="_blank" class="m-black">用户故事</a>
 						</div>
-<!--						/*/-->
+<!--*/-->
 					</div>
 					<!--二维码-->
 					<h4 class="ui horizontal divider header ">扫码关注我</h4>

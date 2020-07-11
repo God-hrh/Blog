@@ -32,7 +32,7 @@ public class indexController {
     @Autowired
     private TagService tagService;
     @RequestMapping("/")
-    public String index1(@PageableDefault(size = 4,sort = {"updateTime"},direction = Sort.Direction.DESC)Pageable pageable,
+    public String index1(@PageableDefault(size = 5,sort = {"updateTime"},direction = Sort.Direction.DESC)Pageable pageable,
                          Model model){
         model.addAttribute("page",blogService.listBlog(pageable));
         model.addAttribute("types", typeService.listTypeTop(4));
@@ -49,9 +49,9 @@ public class indexController {
         return "search";
     }
 
-    @RequestMapping("/blog")
-    public String index(){
-
+    @RequestMapping("/blog/{id}")
+    public String index(@PathVariable Long id,Model model){
+        model.addAttribute("blog",blogService.getAndreserve(id));
         return "blog";
     }
 }

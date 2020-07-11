@@ -94,7 +94,7 @@ body{
 }
 /*-------contain-----*/
 .m-contain{
-	max-width: 70em !important;
+	max-width: 75em !important;
 	margin: auto !important;
 }
 .m-contain-smail{
@@ -105,7 +105,9 @@ body{
 .m-black{
 	color: #333 !important;
 }
-
+.m-teal{
+	color: #00B5AD !important;
+}
 
 /*------------mobile------*/
 .m-mobile-show{

@@ -31,11 +31,22 @@ public class Comment {
     //Coment类与Blog类之间的关系
     @ManyToOne
     private Blog blog;
-    //Comment类的自关联关系
+    //Comment类的自关联关系 Comment的子集
     @OneToMany(mappedBy = "parentComment")
     private List<Comment> replyComments = new ArrayList<>();
     @ManyToOne
     private Comment parentComment;
+    //判断是否为管理员评论
+    private Boolean adminComment;
+
+    public Boolean getAdminComment() {
+        return adminComment;
+    }
+
+    public void setAdminComment(Boolean adminComment) {
+        this.adminComment = adminComment;
+    }
+
     public long getId() {
         return id;
     }
@@ -107,6 +118,7 @@ public class Comment {
     public void setParentComment(Comment parentComment) {
         this.parentComment = parentComment;
     }
+
 
     public Comment() {
     }

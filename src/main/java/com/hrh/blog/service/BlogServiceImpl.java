@@ -4,6 +4,7 @@ import com.hrh.blog.dao.BlogRepository;
 import com.hrh.blog.exception.NotFoundException;
 import com.hrh.blog.pojo.Blog;
 import com.hrh.blog.pojo.Type;
+import com.hrh.blog.util.MarkdownUtils;
 import com.hrh.blog.util.MyBeanUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,16 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Blog getBlog(Long id) {
         return blogRepository.findOne(id);
+    }
+    @Transactional
+    @Override
+    public Blog getAndreserve(Long id) {
+        Blog blog = blogRepository.getOne(id);
+        Blog b = new Blog();
+        BeanUtils.copyProperties(blog,b);
+        b.setContent(MarkdownUtils.markdownToHtml(blog.getContent()));
+        blogRepository.updateViews(id);
+        return b;
     }
 
     @Override

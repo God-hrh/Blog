@@ -13,6 +13,9 @@ import java.util.List;
  */
 public interface BlogService {
     Blog getBlog(Long id);
+    //查询出Blog并把博客内容转义
+    Blog getAndreserve(Long id);
+
     //根据条件查询出来的分页方法
     Page<Blog> listBlogs(Pageable pageable,Blog blog);
     //无条件查询的分页方法
