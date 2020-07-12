@@ -100,7 +100,7 @@
 					</div>
 
 					<!--赞赏-->
-					<div class="ui center aligned segment basic" th:if="${blog.appreciation}">
+					<div class="ui center aligned segment basic" th:if="${blog.appreciation}" >
 						<button class="ui orange basic circular button" id="payButton">赞赏</button>
 					</div>
 					<!--二维码-->
@@ -117,7 +117,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="ui attached positive message  ">
+				<div class="ui attached positive message  "  th:if="${blog.shareStatement}">
 					<!--博客信息-->
 					<div class="ui middle aligned grid">
 						<div class="eleven wide column ">
@@ -133,7 +133,7 @@
 						</div>
 					</div>
 				</div>
-				<div  class="ui bottom attached segment">
+				<div  class="ui bottom attached segment"  th:if="${blog.commentabled}">
 					<!--留言区域-列表-->
 					<div id="liuyan" class="ui teal segment">
 						<div th:fragment="commentList">

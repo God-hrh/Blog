@@ -5,7 +5,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
-		<link rel="stylesheet" type="text/css" href="../static/css/my.css" />
+		<link rel="stylesheet" type="text/css" href="../static/css/my.css" th:href="@{/css/my.css}"/>
 		<title>归档</title>
 	</head>
 
@@ -44,14 +44,24 @@
 						</div>
 						<div class="right aligned column">
 							共
-							<h2 class=" ui orange header m-inline-block m-text-thin">13</h2>篇博客
+							<h2 class=" ui orange header m-inline-block m-text-thin" th:text="${blogCount}">13</h2>篇博客
 						</div>
 					</div>
 					<br />
 					<br />
-
-					<h2 class="ui header center aligned">2020</h2>
+					<th:block th:each="item : ${archiveMap}">
+					<h2 class="ui header center aligned" th:text="${item.key}">2020</h2>
 					<div class="ui fluid vertical menu">
+						<a href="" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item" th:each="blog : ${item.value}">
+							<span>
+							<i class="circle icon teal"></i><span th:text="${blog.title}">一个男生该有哪些优秀习惯</span>
+							<div class="ui label left pointing teal basic" th:text="${#dates.format(blog.updateTime,'MMMdd')}">5月21日</div>
+							</span>
+							
+							<span class="ui orange label basic" th:text="${blog.flag}">原创</span>
+					
+						</a>
+<!--/*-->
 						<a href="" target="_blank" class="item">
 							<span>
 							<i class="circle icon teal"></i>一个男生该有哪些优秀习惯？
@@ -88,17 +98,10 @@
 							<span class="ui orange label basic">原创</span>
 					
 						</a>
-						<a href="" target="_blank" class="item">
-							<span>
-							<i class="circle icon teal"></i>一个男生该有哪些优秀习惯？
-							<div class="ui label left pointing teal basic">5月21日</div>
-							</span>
-							
-							<span class="ui orange label basic">原创</span>
-					
-						</a>
-
+<!--*/-->
 					</div>
+					</th:block>
+<!--/*-->
 					<h2 class="ui header center aligned">2019</h2>
 					<div class="ui fluid vertical menu">
 						<a href="" target="_blank" class="item">
@@ -197,6 +200,7 @@
 						</a>
 
 					</div>
+<!--*/-->
 				</div>
 
 			</div>
@@ -261,7 +265,7 @@
 			</div>
 
 		</footer>
-		<script type="text/javascript" src="../static/js/jquery-1.9.1.js"></script>
+		<script type="text/javascript" src="../static/js/jquery-1.9.1.js" th:src="@{/js/jquery-1.9.1.js}"></script>
 		<!--<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>-->
 		<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
 		<script type="text/javascript">

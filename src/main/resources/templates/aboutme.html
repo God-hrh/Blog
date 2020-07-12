@@ -5,7 +5,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
-		<link rel="stylesheet" type="text/css" href="../static/css/my.css" />
+		<link rel="stylesheet" type="text/css" href="../static/css/my.css" th:href="@{/css/my.css}" />
 		<title>关于我</title>
 	</head>
 
@@ -63,7 +63,6 @@
 						<!--第四块-->
 						<div class="ui attached segment">
 							<div class="ui header">技术</div>
-							<div class="ui header">生活</div>
 							<div class="ui teal basic left pointing label m-margin-tb-tiny">Java</div>
 							<div class="ui teal basic left pointing label m-margin-tb-tiny">Spring</div>
 							<div class="ui teal basic left pointing label m-margin-tb-tiny">Node.js</div>
@@ -72,7 +71,7 @@
 						</div>
 						<!--第五块-->
 						<div class="ui bottom attached segment">
-							<a href="#" class="ui github circular icon button" data-content="https://github.com/God-hrh?tab=repositories" data-position="bottom center"><i class="github icon"></i></a>
+							<a href="#" class="ui github circular icon button" data-content="https://github.com/God-hrh" data-position="bottom center"><i class="github icon"></i></a>
 							<a href="#" class="ui qq circular icon button" data-content="2237202251" data-position="bottom center"><i class="qq icon"></i></a>
 							<a href="#" class="ui weixin circular icon button" data-content="2237202251" data-position="bottom center"><i class="weixin icon"></i></a>
 						</div>
@@ -143,7 +142,7 @@
 			</div>
 
 		</footer>
-		<script type="text/javascript" src="../static/js/jquery-1.9.1.js"></script>
+		<script type="text/javascript" src="../static/js/jquery-1.9.1.js" th:src="@{/js/jquery-1.9.1.js}"></script>
 		<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
 		<script type="text/javascript">
 			$("#sidebar").click(function() {

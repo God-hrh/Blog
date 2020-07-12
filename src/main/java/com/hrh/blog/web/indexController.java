@@ -11,10 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Heerh
@@ -53,5 +50,9 @@ public class indexController {
     public String index(@PathVariable Long id,Model model){
         model.addAttribute("blog",blogService.getAndreserve(id));
         return "blog";
+    }
+    @GetMapping("/about")
+    public String aboutme(){
+        return "aboutme";
     }
 }
