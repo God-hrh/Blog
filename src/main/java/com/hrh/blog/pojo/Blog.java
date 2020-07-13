@@ -60,7 +60,7 @@ public class Blog {
     //标签类
     @ManyToMany(cascade = {CascadeType.PERSIST})
     private List<Tag> tags = new ArrayList<>();
-    //标签类的ids  @Transient是不需要该字段存储进数据库
+    //标签类的ids  @Transient是不需要该字段存储进数据库  不加该注解是默认保存进数据库的
     @Transient
     private String tagIds;
     //评论类

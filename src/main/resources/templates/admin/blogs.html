@@ -212,9 +212,12 @@
     //表单清除数据按钮
     $('#clear-btn')
         .on('click', function() {
+            //下拉框的清除
             $('.ui.selection.dropdown')
                 .dropdown('clear');
+            //多选框的清除
             $('#recommend').prop("checked", false);
+            //输入框的清除
             $('#form-title').val("");
         });
     // 上一页下一页的函数

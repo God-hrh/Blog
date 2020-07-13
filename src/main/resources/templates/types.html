@@ -149,7 +149,7 @@
 							<!--img-->
 							<div class="five wide middle center  column">
 								<a href="#" target="_blank">
-									<img src="../static/images/nature3.jpg" class="ui rounded image" th:src="@{${blog.firstPicture}}"/>
+									<img src="../static/images/nature3.jpg" class="ui rounded container image" style="width: 15em;" th:src="@{${blog.firstPicture}}"/>
 								</a>
 							</div>
 						</div>
@@ -274,10 +274,10 @@
 				<div class="ui bottom attached segment padded" th:if="${page.totalPages}>1">
 						<div class="ui middle aligned two column grid">
 							<div class="column">
-								<a href="#" class="ui mini teal basic button" th:href="@{/(page=${page.number}-1)}" th:unless="${page.first}">上一页</a>
+								<a href="#" class="ui mini teal basic button" th:href="@{/types/{id}(id=${activeTypeId},page=${page.number}-1)}" th:unless="${page.first}">上一页</a>
 							</div>
 							<div class="right aligned column">
-								<a href="#" class="ui mini teal basic button" th:href="@{/(page=${page.number}+1)}" th:unless="${page.last}">下一页</a>
+								<a href="#" class="ui mini teal basic button" th:href="@{/types/{id}(id=${activeTypeId},page=${page.number}+1)}" th:unless="${page.last}">下一页</a>
 							</div>
 						</div>
 					</div>

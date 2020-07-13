@@ -125,7 +125,7 @@
 								<li>作者：<span th:text="${blog.user.nickname}">贺瑞豪</span><a href="#" th:href="@{/about}" target="_blank">（联系作者）</a></li>
 								<li>发表时间：<span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm')}">2017-10-02 09:08</span></li>
 								<li>版权声明：自由转载-非商用-非衍生-保持署名（创意共享3.0许可证）</li>
-								<li>公众号转载：请在文末添加作者公众号二维码</li>
+								<li>公众号转载：请在文末添加作者微信二维码</li>
 							</ul>
 						</div>
 						<div class="five wide column ">
@@ -142,8 +142,8 @@
 							<div class="comment" th:each="comment : ${comments}">
 								<div class="avatar">
 <!--									把自定义头像注释掉-->
-<!--									<img src="../static/images/heardImg2.jpg" th:src="${session.user!=null} ? @{${session.user.avatar}} ">-->
-									<i class="user circle icon" style="font-size: 2em;width: 100%;height: 100%;color: #4183C4;"></i>
+									<img src="../static/images/heardImg2.jpg" th:src="@{${comment.avatar}}">
+<!--									<i class="user circle icon" style="font-size: 2em;width: 100%;height: 100%;color: #4183C4;"></i>-->
 								</div>
 								<div class="content">
 									<a class="author" >
@@ -164,8 +164,8 @@
 								<div class="comments" th:if="${#arrays.length(comment.replyComments)}>0">
 									<div class="comment" th:each="reply : ${comment.replyComments}">
 										<div class="avatar">
-<!--											<img src="https://unsplash.it/100/100?image=1005" th:src="@{${reply.avatar}}">-->
-											<i class="user circle icon" style="font-size: 2em;width: 100%;height: 100%;color: #4183C4;"></i>
+											<img src="../static/images/heardImg2.jpg" th:src="@{${comment.avatar}}">
+<!--											<i class="user circle icon" style="font-size: 2em;width: 100%;height: 100%;color: #4183C4;"></i>-->
 										</div>
 										<div class="content">
 											<a class="author" >
@@ -479,7 +479,6 @@
 				$("[name='parentComment.id']").val(commentId);
 				$(window).scrollTo($('#comment-form'),500);
 			}
-
 		</script>
 	</body>
 </html>

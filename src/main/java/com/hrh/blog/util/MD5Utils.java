@@ -4,6 +4,7 @@ import com.hrh.blog.pojo.Type;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 /**
  * Created by limi on 2017/10/15.
@@ -41,7 +42,9 @@ public class MD5Utils {
     }
 
     public static void main(String[] args) {
-        Type type = new Type();
-        System.out.println(type.getId());
+//        Type type = new Type();
+//        System.out.println(type.getId());
+        Date date = new Date();
+        System.out.println(date);
     }
 }
