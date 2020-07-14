@@ -3,7 +3,6 @@ package com.hrh.blog.service;
 import com.hrh.blog.dao.TypeRepository;
 import com.hrh.blog.exception.NotFoundException;
 import com.hrh.blog.pojo.Type;
-import org.hibernate.procedure.spi.ParameterRegistrationImplementor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
